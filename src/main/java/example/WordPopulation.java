@@ -4,7 +4,7 @@ import engine.base.Population;
 
 import java.util.List;
 
-public class WordPopulation extends Population<WordChromosome, LetterGene, WordTarget> {
+public class WordPopulation extends Population<LetterGene, WordTarget, WordChromosome> {
     public WordPopulation(List<WordChromosome> wordChromosomes) {
         super(wordChromosomes);
     }

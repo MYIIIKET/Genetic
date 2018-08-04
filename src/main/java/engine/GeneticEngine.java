@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class GeneticEngine<
-        PopulationImpl extends Population<ChromosomeImpl, GeneImpl, TargetImpl>,
-        ChromosomeImpl extends Chromosome<GeneImpl, TargetImpl>,
         GeneImpl extends Gene<?>,
-        TargetImpl extends Target<?>> {
+        TargetImpl extends Target<?>,
+        ChromosomeImpl extends Chromosome<GeneImpl, TargetImpl>,
+        PopulationImpl extends Population<GeneImpl, TargetImpl, ChromosomeImpl>> {
     @Builder.Default
     private int numberOfBest = 4;
     @Builder.Default

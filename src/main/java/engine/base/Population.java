@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public abstract class Population<ChromosomeImpl extends Chromosome<GeneImpl, TargetImpl>,
+public abstract class Population<
         GeneImpl extends Gene<?>,
-        TargetImpl extends Target<?>> {
+        TargetImpl extends Target<?>,
+        ChromosomeImpl extends Chromosome<GeneImpl, TargetImpl>> {
     private UUID id = UUID.randomUUID();
     private List<ChromosomeImpl> chromosomes;
     private int populationSize;
