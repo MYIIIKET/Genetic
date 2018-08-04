@@ -30,8 +30,6 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
 
     public abstract Chromosome<GeneImpl, TargetImpl> mutate(int genesToMutate);
 
-    public abstract boolean isBetterThan(Chromosome<GeneImpl, TargetImpl> chromosome);
-
     public abstract boolean isCompleted();
 
 }
