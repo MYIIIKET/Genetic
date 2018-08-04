@@ -10,9 +10,9 @@ import java.io.Serializable;
 public interface DeepCloneable<Class> extends Serializable {
     default Class copy() {
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            new ObjectOutputStream(baos).writeObject(this);
-            return (Class) new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray())).readObject();
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            new ObjectOutputStream(byteStream).writeObject(this);
+            return (Class) new ObjectInputStream(new ByteArrayInputStream(byteStream.toByteArray())).readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Could not clone");
         }
