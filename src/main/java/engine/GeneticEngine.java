@@ -39,7 +39,7 @@ public class GeneticEngine<
         long generation = 1;
         while (true) {
             reproduce(cross(select(getPopulation())));
-            Chromosome best = selectBest(getPopulation());
+            ChromosomeImpl best = selectBest(getPopulation());
 
             if (updateMutateFactor && generation % generationsToUpdateMutateFactor == 0) {
                 mutateFactor -= mutateFactor * 0.3;
