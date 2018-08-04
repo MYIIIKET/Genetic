@@ -16,7 +16,11 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
-public class GeneticEngine {
+public class GeneticEngine<
+        PopulationImpl extends Population<ChromosomeImpl, GeneImpl, TargetImpl>,
+        ChromosomeImpl extends Chromosome<GeneImpl, TargetImpl>,
+        GeneImpl extends Gene<?>,
+        TargetImpl extends Target<?>> {
     @Builder.Default
     private int numberOfBest = 4;
     @Builder.Default
@@ -29,7 +33,7 @@ public class GeneticEngine {
     private int generationsToUpdateMutateFactor = 10;
     @Builder.Default
     private boolean updateMutateFactor = true;
-    private Population population;
+    private PopulationImpl population;
 
     public void evolution() {
         long generation = 1;
@@ -53,19 +57,19 @@ public class GeneticEngine {
         System.out.println("Evolution completed with generation: " + generation);
     }
 
-    private List<Chromosome> select(Population<Chromosome<Gene<?>, Target<?>>> population) {
+    private List<ChromosomeImpl> select(PopulationImpl population) {
         return population.getChromosomes().stream()
                 .sorted(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
                 .limit(getNumberOfBest()).collect(Collectors.toList());
     }
 
-    private Chromosome selectBest(Population<Chromosome<Gene<?>, Target<?>>> population) {
+    private ChromosomeImpl selectBest(PopulationImpl population) {
         return population.getChromosomes().stream()
                 .min(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
                 .orElseThrow(() -> new RuntimeException("Not enough elements"));
     }
 
-    private List<Chromosome> cross(List<Chromosome> bestChromosomes) {
+    private List<ChromosomeImpl> cross(List<ChromosomeImpl> bestChromosomes) {
         final AtomicInteger counter = new AtomicInteger(0);
         return bestChromosomes
                 .stream().collect(Collectors.groupingBy(chromosome -> counter.getAndIncrement() / 2))
@@ -74,7 +78,7 @@ public class GeneticEngine {
                 .flatMap(List::stream).collect(Collectors.toList());
     }
 
-    private List<Chromosome> cross(Map.Entry<Integer, List<Chromosome>> entry) {
+    private List<ChromosomeImpl> cross(Map.Entry<Integer, List<ChromosomeImpl>> entry) {
         final int size = entry.getValue().size();
         if (size > 1) {
             return cross(entry.getValue().get(0), entry.getValue().get(1));
@@ -83,42 +87,42 @@ public class GeneticEngine {
         }
     }
 
-    private List<Chromosome> cross(Chromosome<Gene<?>, Target<?>> firstChromosome, Chromosome<Gene<?>, Target<?>> secondChromosome) {
-        Gene<?> tempGene;
+    private List<ChromosomeImpl> cross(ChromosomeImpl firstChromosome, ChromosomeImpl secondChromosome) {
+        Gene tempGene;
         final boolean isFirstPart = Math.random() < 0.5;
         final int size = firstChromosome.getGenes().size();
         if (isFirstPart) {
             for (int i = 0; i < size * getCrossoverCoverage(); i++) {
                 tempGene = firstChromosome.getGenes().get(i).copy();
-                firstChromosome.getGenes().set(i, secondChromosome.getGenes().get(i).copy());
-                secondChromosome.getGenes().set(i, tempGene);
+                firstChromosome.getGenes().set(i, (GeneImpl) secondChromosome.getGenes().get(i).copy());
+                secondChromosome.getGenes().set(i, (GeneImpl) tempGene);
             }
         } else {
             for (int i = (int) (size * getCrossoverCoverage()); i < size; i++) {
                 tempGene = firstChromosome.getGenes().get(i).copy();
-                firstChromosome.getGenes().set(i, secondChromosome.getGenes().get(i).copy());
-                secondChromosome.getGenes().set(i, tempGene);
+                firstChromosome.getGenes().set(i, (GeneImpl) secondChromosome.getGenes().get(i).copy());
+                secondChromosome.getGenes().set(i, (GeneImpl) tempGene);
             }
         }
         return Arrays.asList(firstChromosome, secondChromosome);
     }
 
-    private void reproduce(List<Chromosome<Gene<?>, ? extends Target<?>>> chromosomes) {
+    private void reproduce(List<ChromosomeImpl> chromosomes) {
         final int populationSize = getPopulation().getPopulationSize();
         final int survivorsSize = chromosomes.size();
         final int toProduce = populationSize - survivorsSize;
         int randomSurvivor;
         for (int i = 0; i < toProduce; i++) {
             randomSurvivor = (int) (Math.random() * survivorsSize);
-            chromosomes.add(chromosomes.get(randomSurvivor).copy());
+            chromosomes.add((ChromosomeImpl) chromosomes.get(randomSurvivor).copy());
         }
         getPopulation().setChromosomes(mutate(chromosomes));
     }
 
-    private List<Chromosome<Gene<?>, ? extends Target<?>>> mutate(List<Chromosome<Gene<?>, ? extends Target<?>>> chromosomes) {
+    private List<ChromosomeImpl> mutate(List<ChromosomeImpl> chromosomes) {
         final int chromosomeLength = chromosomes.get(0).getGenes().size();
         final int genesToMutate = (int) (chromosomeLength * getMutateFactor());
-        for (Chromosome<Gene<?>, ? extends Target<?>> chromosome : chromosomes) {
+        for (ChromosomeImpl chromosome : chromosomes) {
             chromosome.mutate(genesToMutate);
         }
         return chromosomes;
