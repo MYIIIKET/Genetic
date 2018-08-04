@@ -19,7 +19,7 @@ public class Main {
 
         WordTarget wordTarget = new WordTarget(targetGenes);
 
-        int populationSize = 10000;
+        int populationSize = 1000;
         List<WordChromosome> chromosomes = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
             WordChromosome chromosome = new WordChromosome(initialGenes, allGenes, wordTarget);

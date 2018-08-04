@@ -34,7 +34,7 @@ public class GeneticEngine {
                 mutateFactor -= mutateFactor * 0.3;
             }
 
-            System.out.println("engine.Chromosome: " + best.toString()
+            System.out.println("Chromosome: " + best.toString()
                     + "; Fitness: " + best.getFitnessValue()
                     + "; Generation: " + generation);
 
