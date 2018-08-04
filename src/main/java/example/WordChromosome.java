@@ -29,11 +29,6 @@ public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
     }
 
     @Override
-    public boolean isBetterThan(Chromosome<LetterGene, WordTarget> chromosome) {
-        return getFitnessValue().byteValue() < chromosome.getFitnessValue().byteValue();
-    }
-
-    @Override
     public boolean isCompleted() {
         return getFitnessValue().equals(getTarget().getFitnessValue());
     }
