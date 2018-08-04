@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public abstract class Population<ChromosomeImpl extends Chromosome<? extends Gene<? extends AbstractValue<?>>, ? extends Target<?>>> {
+public abstract class Population<ChromosomeImpl extends Chromosome<? extends Gene<?>, ? extends Target<?>>> {
     private UUID id = UUID.randomUUID();
     private List<ChromosomeImpl> chromosomes;
     private int populationSize;
@@ -16,9 +16,5 @@ public abstract class Population<ChromosomeImpl extends Chromosome<? extends Gen
     public Population(List<ChromosomeImpl> chromosomes) {
         setChromosomes(new ArrayList<>(chromosomes));
         setPopulationSize(chromosomes.size());
-    }
-
-    public long incrementAndGetGeneration() {
-        return ++generation;
     }
 }

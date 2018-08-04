@@ -4,18 +4,18 @@ import engine.Gene;
 import lombok.Data;
 
 @Data
-public class LetterGene extends Gene<LetterValue> {
-    public LetterGene(LetterValue value) {
+public class LetterGene extends Gene<Character> {
+    public LetterGene(Character value) {
         super(value);
     }
 
     @Override
     public int compareTo(Gene gene) {
-        return Math.abs(gene.getValue().getNumberRepresentation().byteValue() - getValue().getNumberRepresentation());
+        return Math.abs(gene.getNumberRepresentation().intValue() - getNumberRepresentation().intValue());
     }
 
     @Override
-    protected Gene<LetterValue> mutate(Gene<LetterValue> gene) {
+    protected Gene<Character> mutate(Gene<Character> gene) {
         final boolean willBeMutated = Math.random() < 0.5;
         if (willBeMutated) {
             return gene.copy();
@@ -25,6 +25,11 @@ public class LetterGene extends Gene<LetterValue> {
 
     @Override
     public Number getFitnessValue() {
-        return getValue().getNumberRepresentation();
+        return getNumberRepresentation();
+    }
+
+    @Override
+    public Number getNumberRepresentation() {
+        return (byte) getValue().charValue();
     }
 }

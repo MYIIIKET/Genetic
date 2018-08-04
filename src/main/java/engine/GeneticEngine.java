@@ -3,7 +3,10 @@ package engine;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -25,7 +28,7 @@ public class GeneticEngine {
     private Population population;
 
     public void evolution() {
-        long generation = 0;
+        long generation = 1;
         while (true) {
             reproduce(cross(select(getPopulation())));
             Chromosome best = selectBest(getPopulation());
@@ -46,17 +49,13 @@ public class GeneticEngine {
         System.out.println("Evolution completed with generation: " + generation);
     }
 
-    private boolean isFitnessChanging() {
-        return false;
-    }
-
-    private List<Chromosome> select(Population<Chromosome<Gene<AbstractValue<?>>, Target<?>>> population) {
+    private List<Chromosome> select(Population<Chromosome<Gene<?>, Target<?>>> population) {
         return population.getChromosomes().stream()
                 .sorted(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
                 .limit(getNumberOfBest()).collect(Collectors.toList());
     }
 
-    private Chromosome selectBest(Population<Chromosome<Gene<AbstractValue<?>>, Target<?>>> population) {
+    private Chromosome selectBest(Population<Chromosome<Gene<?>, Target<?>>> population) {
         return population.getChromosomes().stream()
                 .min(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
                 .orElseThrow(() -> new RuntimeException("Not enough elements"));
@@ -80,8 +79,8 @@ public class GeneticEngine {
         }
     }
 
-    private List<Chromosome> cross(Chromosome<Gene<AbstractValue<?>>, Target<?>> firstChromosome, Chromosome<Gene<AbstractValue<?>>, Target<?>> secondChromosome) {
-        Gene<AbstractValue<?>> tempGene;
+    private List<Chromosome> cross(Chromosome<Gene<?>, Target<?>> firstChromosome, Chromosome<Gene<?>, Target<?>> secondChromosome) {
+        Gene<?> tempGene;
         final boolean isFirstPart = Math.random() < 0.5;
         final int size = firstChromosome.getGenes().size();
         if (isFirstPart) {
@@ -100,7 +99,7 @@ public class GeneticEngine {
         return Arrays.asList(firstChromosome, secondChromosome);
     }
 
-    private void reproduce(List<Chromosome<Gene<? extends AbstractValue<?>>, ? extends Target<?>>> chromosomes) {
+    private void reproduce(List<Chromosome<Gene<?>, ? extends Target<?>>> chromosomes) {
         final int populationSize = getPopulation().getPopulationSize();
         final int survivorsSize = chromosomes.size();
         final int toProduce = populationSize - survivorsSize;
@@ -112,10 +111,10 @@ public class GeneticEngine {
         getPopulation().setChromosomes(mutate(chromosomes));
     }
 
-    private List<Chromosome<Gene<? extends AbstractValue<?>>, ? extends Target<?>>> mutate(List<Chromosome<Gene<? extends AbstractValue<?>>, ? extends Target<?>>> chromosomes) {
+    private List<Chromosome<Gene<?>, ? extends Target<?>>> mutate(List<Chromosome<Gene<?>, ? extends Target<?>>> chromosomes) {
         final int chromosomeLength = chromosomes.get(0).getGenes().size();
         final int genesToMutate = (int) (chromosomeLength * getMutateFactor());
-        for (Chromosome<Gene<? extends AbstractValue<?>>, ? extends Target<?>> chromosome : chromosomes) {
+        for (Chromosome<Gene<?>, ? extends Target<?>> chromosome : chromosomes) {
             chromosome.mutate(genesToMutate);
         }
         return chromosomes;

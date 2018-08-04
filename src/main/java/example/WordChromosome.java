@@ -38,7 +38,7 @@ public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
 
     @Override
     public String toString() {
-        return getGenes().stream().map(gene -> String.valueOf(gene.getValue().getValue()))
+        return getGenes().stream().map(gene -> String.valueOf(gene.getValue()))
                 .collect(Collectors.joining());
     }
 

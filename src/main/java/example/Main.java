@@ -35,8 +35,7 @@ public class Main {
     private static List<LetterGene> initGenes(char[] chars) {
         List<LetterGene> genes = new ArrayList<>();
         for (char letter : chars) {
-            LetterValue letterValue = new LetterValue(letter);
-            LetterGene letterGene = new LetterGene(letterValue);
+            LetterGene letterGene = new LetterGene(letter);
             genes.add(letterGene);
         }
         return genes;

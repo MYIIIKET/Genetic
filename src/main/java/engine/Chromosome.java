@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-public abstract class Chromosome<GeneImpl extends Gene<? extends AbstractValue<?>>, TargetImpl extends Target<?>>
+public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Target<?>>
         implements Comparable<Chromosome<GeneImpl, TargetImpl>>,
         DeepCloneable<Chromosome<GeneImpl, TargetImpl>> {
     private final UUID id = UUID.randomUUID();

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Gene<Value extends AbstractValue<?>> implements Comparable<Gene<? extends AbstractValue<?>>>,
+public abstract class Gene<Value> implements Comparable<Gene<Value>>,
         DeepCloneable<Gene<Value>> {
     private final UUID code = UUID.randomUUID();
     private Value value;
@@ -17,4 +17,6 @@ public abstract class Gene<Value extends AbstractValue<?>> implements Comparable
     protected abstract Gene<Value> mutate(Gene<Value> gene);
 
     protected abstract Number getFitnessValue();
+
+    public abstract Number getNumberRepresentation();
 }
