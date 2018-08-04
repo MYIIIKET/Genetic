@@ -1,9 +1,11 @@
 package example;
 
-import engine.Gene;
+import engine.base.Gene;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class LetterGene extends Gene<Character> {
     public LetterGene(Character value) {
         super(value);

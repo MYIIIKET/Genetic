@@ -1,5 +1,7 @@
-package engine;
+package engine.base;
 
+import engine.interfaces.Computable;
+import engine.interfaces.DeepCloneable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,13 +12,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Gene<Value> implements Comparable<Gene<Value>>,
-        DeepCloneable<Gene<Value>> {
+        DeepCloneable<Gene<Value>>,
+        Computable {
     private final UUID code = UUID.randomUUID();
     private Value value;
 
     protected abstract Gene<Value> mutate(Gene<Value> gene);
-
-    protected abstract Number getFitnessValue();
 
     public abstract Number getNumberRepresentation();
 }

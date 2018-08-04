@@ -1,5 +1,7 @@
-package engine;
+package engine.base;
 
+import engine.interfaces.Computable;
+import engine.interfaces.DeepCloneable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Target<?>>
         implements Comparable<Chromosome<GeneImpl, TargetImpl>>,
-        DeepCloneable<Chromosome<GeneImpl, TargetImpl>> {
+        DeepCloneable<Chromosome<GeneImpl, TargetImpl>>,
+        Computable {
     private final UUID id = UUID.randomUUID();
     private List<GeneImpl> genes;
     private List<GeneImpl> allGenes;
@@ -24,8 +27,6 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
         setAllGenes(allGenes);
         setFitnessValue(getFitnessValue());
     }
-
-    public abstract Number getFitnessValue();
 
     public abstract Chromosome<GeneImpl, TargetImpl> mutate(int genesToMutate);
 

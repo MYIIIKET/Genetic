@@ -1,6 +1,6 @@
 package example;
 
-import engine.Target;
+import engine.base.Target;
 
 import java.util.List;
 

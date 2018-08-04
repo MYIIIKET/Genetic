@@ -1,7 +1,7 @@
 package example;
 
 import engine.GeneticEngine;
-import engine.Population;
+import engine.base.Population;
 
 import java.util.ArrayList;
 import java.util.List;

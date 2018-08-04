@@ -1,5 +1,9 @@
 package engine;
 
+import engine.base.Chromosome;
+import engine.base.Gene;
+import engine.base.Population;
+import engine.base.Target;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,13 +1,15 @@
 package example;
 
-import engine.Chromosome;
+import engine.base.Chromosome;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
     public WordChromosome(List<LetterGene> genes, List<LetterGene> allGenes, WordTarget target) {
         super(genes, allGenes, target);

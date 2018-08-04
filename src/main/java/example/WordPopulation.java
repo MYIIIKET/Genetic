@@ -1,6 +1,6 @@
 package example;
 
-import engine.Population;
+import engine.base.Population;
 
 import java.util.List;
 
