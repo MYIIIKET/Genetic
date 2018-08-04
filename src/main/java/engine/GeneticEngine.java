@@ -88,20 +88,20 @@ public class GeneticEngine<
     }
 
     private List<ChromosomeImpl> cross(ChromosomeImpl firstChromosome, ChromosomeImpl secondChromosome) {
-        Gene tempGene;
+        GeneImpl tempGene;
         final boolean isFirstPart = Math.random() < 0.5;
         final int size = firstChromosome.getGenes().size();
         if (isFirstPart) {
             for (int i = 0; i < size * getCrossoverCoverage(); i++) {
-                tempGene = firstChromosome.getGenes().get(i).copy();
+                tempGene = (GeneImpl) firstChromosome.getGenes().get(i).copy();
                 firstChromosome.getGenes().set(i, (GeneImpl) secondChromosome.getGenes().get(i).copy());
-                secondChromosome.getGenes().set(i, (GeneImpl) tempGene);
+                secondChromosome.getGenes().set(i, tempGene);
             }
         } else {
             for (int i = (int) (size * getCrossoverCoverage()); i < size; i++) {
-                tempGene = firstChromosome.getGenes().get(i).copy();
+                tempGene = (GeneImpl) firstChromosome.getGenes().get(i).copy();
                 firstChromosome.getGenes().set(i, (GeneImpl) secondChromosome.getGenes().get(i).copy());
-                secondChromosome.getGenes().set(i, (GeneImpl) tempGene);
+                secondChromosome.getGenes().set(i, tempGene);
             }
         }
         return Arrays.asList(firstChromosome, secondChromosome);

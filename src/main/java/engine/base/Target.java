@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public abstract class Target<TargetImpl> implements DeepCloneable<TargetImpl>, Computable {
-    TargetImpl target;
+public abstract class Target<Value> implements DeepCloneable<Value>, Computable {
+    Value target;
 }
