@@ -2,6 +2,10 @@ package example;
 
 import engine.GeneticEngine;
 import engine.base.Population;
+import example.realization.LetterGene;
+import example.realization.WordChromosome;
+import example.realization.WordPopulation;
+import example.realization.WordTarget;
 
 import java.util.ArrayList;
 import java.util.List;
