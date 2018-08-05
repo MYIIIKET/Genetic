@@ -2,6 +2,7 @@ package engine.base;
 
 import engine.interfaces.Computable;
 import engine.interfaces.DeepCloneable;
+import engine.interfaces.Mutable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Target<?>>
         implements Comparable<Chromosome<GeneImpl, TargetImpl>>,
         DeepCloneable<Chromosome<GeneImpl, TargetImpl>>,
+        Mutable<Chromosome<GeneImpl, TargetImpl>, Integer>,
         Computable {
     private final UUID id = UUID.randomUUID();
     private List<GeneImpl> genes;
@@ -28,7 +30,18 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
         setFitnessValue(getFitnessValue());
     }
 
-    public abstract Chromosome<GeneImpl, TargetImpl> mutate(int genesToMutate);
+    @Override
+    public Chromosome<GeneImpl, TargetImpl> mutate(Integer genesToMutate) {
+        final int chromosomeLength = getGenes().size();
+        int geneToMutate;
+        int randomGene;
+        for (int i = 0; i < genesToMutate; i++) {
+            geneToMutate = (int) (Math.random() * chromosomeLength);
+            randomGene = (int) (Math.random() * getAllGenes().size());
+            getGenes().set(geneToMutate, (GeneImpl) getGenes().get(genesToMutate).mutate(getAllGenes().get(randomGene)));
+        }
+        return this;
+    }
 
     public abstract boolean isCompleted();
 

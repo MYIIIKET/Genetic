@@ -16,19 +16,6 @@ public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
     }
 
     @Override
-    public Chromosome<LetterGene, WordTarget> mutate(int genesToMutate) {
-        final int chromosomeLength = getGenes().size();
-        int geneToMutate;
-        int randomGene;
-        for (int i = 0; i < genesToMutate; i++) {
-            geneToMutate = (int) (Math.random() * chromosomeLength);
-            randomGene = (int) (Math.random() * getAllGenes().size());
-            getGenes().set(geneToMutate, (LetterGene) getGenes().get(genesToMutate).mutate(getAllGenes().get(randomGene)));
-        }
-        return this;
-    }
-
-    @Override
     public boolean isCompleted() {
         return getFitnessValue().equals(getTarget().getFitnessValue());
     }

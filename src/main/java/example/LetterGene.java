@@ -17,15 +17,6 @@ public class LetterGene extends Gene<Character> {
     }
 
     @Override
-    protected Gene<Character> mutate(Gene<Character> gene) {
-        final boolean willBeMutated = Math.random() < 0.5;
-        if (willBeMutated) {
-            return gene.copy();
-        }
-        return this;
-    }
-
-    @Override
     public Number getFitnessValue() {
         return getNumberRepresentation();
     }
