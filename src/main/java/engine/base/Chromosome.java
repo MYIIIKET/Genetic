@@ -30,6 +30,10 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
         setFitnessValue(getFitnessValue());
     }
 
+    public boolean isCompleted() {
+        return getFitnessValue().equals(getTarget().getFitnessValue());
+    }
+
     @Override
     public Chromosome<GeneImpl, TargetImpl> mutate(Integer genesToMutate) {
         final int chromosomeLength = getGenes().size();
@@ -42,7 +46,5 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
         }
         return this;
     }
-
-    public abstract boolean isCompleted();
 
 }

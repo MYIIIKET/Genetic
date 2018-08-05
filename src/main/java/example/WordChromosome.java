@@ -16,11 +16,6 @@ public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
     }
 
     @Override
-    public boolean isCompleted() {
-        return getFitnessValue().equals(getTarget().getFitnessValue());
-    }
-
-    @Override
     public String toString() {
         return getGenes().stream().map(gene -> String.valueOf(gene.getValue()))
                 .collect(Collectors.joining());
