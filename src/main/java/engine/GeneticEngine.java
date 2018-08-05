@@ -46,7 +46,7 @@ public class GeneticEngine<
             }
 
             System.out.println("Chromosome: " + best.toString()
-                    + "; Fitness: " + best.getFitnessValue()
+                    + "; Fitness: " + best.computeFitnessValue()
                     + "; Generation: " + generation);
 
             if (best.isCompleted()) {
@@ -59,13 +59,13 @@ public class GeneticEngine<
 
     private List<ChromosomeImpl> select(PopulationImpl population) {
         return population.getChromosomes().stream()
-                .sorted(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
+                .sorted(Comparator.comparing(chromosome -> chromosome.computeFitnessValue().intValue()))
                 .limit(getNumberOfBest()).collect(Collectors.toList());
     }
 
     private ChromosomeImpl selectBest(PopulationImpl population) {
         return population.getChromosomes().stream()
-                .min(Comparator.comparing(chromosome -> chromosome.getFitnessValue().intValue()))
+                .min(Comparator.comparing(chromosome -> chromosome.computeFitnessValue().intValue()))
                 .orElseThrow(() -> new RuntimeException("Not enough elements"));
     }
 

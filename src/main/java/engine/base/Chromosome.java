@@ -31,7 +31,7 @@ public abstract class Chromosome<GeneImpl extends Gene<?>, TargetImpl extends Ta
     }
 
     public boolean isCompleted() {
-        return getFitnessValue().equals(getTarget().getFitnessValue());
+        return getFitnessValue().equals(getTarget().computeFitnessValue());
     }
 
     @Override

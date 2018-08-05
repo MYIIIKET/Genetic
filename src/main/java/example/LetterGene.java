@@ -17,7 +17,7 @@ public class LetterGene extends Gene<Character> {
     }
 
     @Override
-    public Number getFitnessValue() {
+    public Number computeFitnessValue() {
         return getNumberRepresentation();
     }
 

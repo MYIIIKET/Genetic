@@ -27,10 +27,10 @@ public class WordChromosome extends Chromosome<LetterGene, WordTarget> {
     }
 
     @Override
-    public Number getFitnessValue() {
+    public Number computeFitnessValue() {
         final AtomicInteger index = new AtomicInteger(0);
-        final int fitnessValue = getGenes().stream().mapToInt(gene -> Math.abs(gene.getFitnessValue().byteValue()
-                - getTarget().getTarget().get(index.getAndIncrement()).getFitnessValue().byteValue())).sum();
+        final int fitnessValue = getGenes().stream().mapToInt(gene -> Math.abs(gene.computeFitnessValue().byteValue()
+                - getTarget().getTarget().get(index.getAndIncrement()).computeFitnessValue().byteValue())).sum();
         setFitnessValue(fitnessValue);
         return fitnessValue;
     }

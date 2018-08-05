@@ -8,7 +8,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.mylllket.inc'
             artifactId = 'genetic'
-            version = '1.2'
+            version = '1.3'
             from components.java
         }
     }

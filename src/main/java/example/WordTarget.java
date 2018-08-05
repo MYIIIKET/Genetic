@@ -10,7 +10,7 @@ public class WordTarget extends Target<List<LetterGene>> {
     }
 
     @Override
-    public Number getFitnessValue() {
+    public Number computeFitnessValue() {
         return 0;
     }
 }
