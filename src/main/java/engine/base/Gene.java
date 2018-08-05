@@ -27,6 +27,4 @@ public abstract class Gene<Value> implements Comparable<Gene<Value>>,
         }
         return this;
     }
-
-    public abstract Number getNumberRepresentation();
 }

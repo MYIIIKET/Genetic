@@ -13,16 +13,11 @@ public class LetterGene extends Gene<Character> {
 
     @Override
     public int compareTo(Gene gene) {
-        return Math.abs(gene.getNumberRepresentation().intValue() - getNumberRepresentation().intValue());
+        return Math.abs(gene.computeFitnessValue().intValue() - computeFitnessValue().intValue());
     }
 
     @Override
     public Number computeFitnessValue() {
-        return getNumberRepresentation();
-    }
-
-    @Override
-    public Number getNumberRepresentation() {
         return (byte) getValue().charValue();
     }
 }
