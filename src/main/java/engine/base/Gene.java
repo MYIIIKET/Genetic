@@ -20,10 +20,10 @@ public abstract class Gene<Value> implements Comparable<Gene<Value>>,
     private Value value;
 
     @Override
-    public Gene<?> mutate(Gene<?> gene) {
+    public Gene<Value> mutate(Gene<?> gene) {
         final boolean willBeMutated = Math.random() < 0.5;
         if (willBeMutated) {
-            return gene.copy();
+            return (Gene<Value>) gene.copy();
         }
         return this;
     }
